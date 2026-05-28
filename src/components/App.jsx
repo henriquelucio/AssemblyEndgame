@@ -1,8 +1,11 @@
 import React from "react"
 import {languages} from "./languages"
+import clsx from "clsx"
 
 export default function AssemblyEndgame(){
     const [currentWord, setCurrentWord] = React.useState("react")
+    const [guessedLetters, setGuessedLetters] = React.useState([])
+    console.log(guessedLetters)
 
     const alphabet = "abcdefghijklmnopqrstuvwyxz"
     
@@ -24,8 +27,19 @@ export default function AssemblyEndgame(){
     ))
 
     const keyboardElements = alphabet.split("").map((letter) => (
-        <button key={letter}>{letter.toUpperCase()}</button>
+        <button 
+            key={letter} 
+            onClick={() => addGuessedLetters(letter)}
+        >
+            {letter.toUpperCase()}
+        </button>
     ))
+
+    function addGuessedLetters(letter){
+        setGuessedLetters(prevGuessed => 
+            prevGuessed.includes(letter) ? prevGuessed : [...prevGuessed, letter]
+        )
+    }
     
     return(
         <main>
@@ -46,6 +60,7 @@ export default function AssemblyEndgame(){
             <section className="keyboard">
                 {keyboardElements}
             </section>
+            <button>New Game</button>
         </main>
     )
 }
