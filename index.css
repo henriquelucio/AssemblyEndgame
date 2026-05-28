@@ -60,11 +60,12 @@ section.language-chips {
 span.chip {
     border-radius: 3px;
     padding: 4.5px;
+    position: relative;
 }
 
 span.chip.lost::before {
     content: "💀";
-    position: relative;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
