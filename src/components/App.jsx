@@ -1,11 +1,11 @@
 import React from "react"
 import {languages} from "./languages"
 import clsx from "clsx"
-import { getFarewellText } from "./utils"
+import { getFarewellText, rndmWords } from "./utils"
 
 export default function AssemblyEndgame(){
     //State values
-    const [currentWord, setCurrentWord] = React.useState("react")
+    const [currentWord, setCurrentWord] = React.useState(rndmWords)
     const [guessedLetters, setGuessedLetters] = React.useState([])
 
     //Derived values
@@ -68,6 +68,11 @@ export default function AssemblyEndgame(){
         lost: isGameLost,
         farewell: !isGameOver && isLastGuessIncorrect
     })
+
+    function newGameWord(){
+        setCurrentWord(rndmWords)
+        setGuessedLetters([])
+    }
 
     function addGuessedLetters(letter){
         setGuessedLetters(prevGuessed => 
@@ -149,7 +154,10 @@ export default function AssemblyEndgame(){
                 {keyboardElements}
             </section>
 
-            {(isGameLost || isGameWon) &&<button className="new-game">
+            {(isGameLost || isGameWon) &&
+            <button 
+                className="new-game"
+                onClick={newGameWord}>
                 New Game
             </button>}
 
